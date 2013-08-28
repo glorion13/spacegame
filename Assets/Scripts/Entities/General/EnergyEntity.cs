@@ -14,4 +14,11 @@ public class EnergyEntity : Entity {
     public override void SetEnabled(bool enabledValue)
     {
     }
+
+    public override void Update()
+    {
+        base.Update();
+        GetComponent<ParticleSystem>().emissionRate = EnergyValue;
+    }
+
 }

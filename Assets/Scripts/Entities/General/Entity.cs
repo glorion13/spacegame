@@ -105,6 +105,7 @@ public class Entity : MonoBehaviour {
 
     public void UpdateLineOfSight(int prevX, int prevY, int newX, int newY)
     {
+        if (LineOfSightTemplate.Count <= 0) return;
         var visibilityGrid = transform.parent.parent.GetComponent<Player>().VisibilityGrid.GetComponent<VisibilityGrid>();
         foreach (var lineOfSightTiles in LineOfSightTemplate)
         {

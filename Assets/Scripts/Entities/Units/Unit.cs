@@ -19,6 +19,7 @@ public class Unit : BuildableEntity {
             new Tuple<int, int>(1, 0),
             new Tuple<int, int>(0, 1)
         };
+        UpdateLineOfSight(X, Y, X, Y);
 	}
 	
 	// Update is called once per frame
