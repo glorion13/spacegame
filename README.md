@@ -14,18 +14,21 @@ Completed:
 * Build progress before something is ready using seconds as measurement
 * Grid layout
 * Fog of war
+* Players (2)
+* 'Game' class that instantiates everything (rather than having a hierarchy)
+* Line of Sight templates
+* Visual link between linked nodes
+* Fog Of War visualisation - built it with a shader
+* Debugging tools (from inspector)
+* Entity size templates (number of tiles occupied by a unit)
 
 To do:
 --------------------
 
-- Line of Sight templates
-- Fog Of War visualisation (MOST LIKELY) - Use the OnPostRender() function and do actual GL rendering over the correct pixels.
-- Something that instantiates everything (rather than having a hierarchy)
-- Controls
-- Players (2)
+- Controls - dragging control - have a look at Unity Trail Renderer
 - Game AI
 - Collision & pathfinding
-- Map
+- Minimap - or zoom in zoom out
 - Particle effect reacting to energy fluctuations
-- Visual link between linked nodes
-
+- Energy gathering from nodes
+- Properly/Cleanly fix issue of prefab self instantiation

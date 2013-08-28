@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;UNITY_ANDROID_API;ENABLE_CLOTH;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;UNITY_4_1_5;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_ANDROID;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;UNITY_ANDROID_API;ENABLE_CLOTH;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;UNITY_4_1_4;UNITY_4_1;ENABLE_PROFILER;UNITY_EDITOR</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -44,19 +44,20 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Building\BasicNodeBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Building\NodeBehaviour.cs" />
-     <Compile Include="Assets\Scripts\General\IContextMenu.cs" />
-     <Compile Include="Assets\Scripts\General\InstanceBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Map\AbstractHexagonGridFromSizeCreator.cs" />
-     <Compile Include="Assets\Scripts\Map\FogOfWarGridBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Map\IVisible.cs" />
-     <Compile Include="Assets\Scripts\Map\LineOfSightBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Map\MapGridBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Player\ControllerBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Player\GuiBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Unit\UnitBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Entities\Buildings\Building.cs" />
+     <Compile Include="Assets\Scripts\Entities\General\BuildableEntity.cs" />
+     <Compile Include="Assets\Scripts\Entities\General\EnergyEntity.cs" />
+     <Compile Include="Assets\Scripts\Entities\General\Entity.cs" />
+     <Compile Include="Assets\Scripts\Entities\Units\Unit.cs" />
+     <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\Grid\HexagonGridCreator.cs" />
+     <Compile Include="Assets\Scripts\Grid\MapGrid.cs" />
+     <Compile Include="Assets\Scripts\Grid\VisibilityGrid.cs" />
+     <Compile Include="Assets\Scripts\Infrastructure\Tuple.cs" />
+     <Compile Include="Assets\Scripts\Player\Player.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerGui.cs" />
+     <None Include="Assets\Shaders\FogOfWarShader.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
