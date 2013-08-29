@@ -20,7 +20,24 @@ public class Building : BuildableEntity
             new Tuple<int, int>(-1, 0),
             new Tuple<int, int>(0, -1),
             new Tuple<int, int>(1, 0),
-            new Tuple<int, int>(0, 1)
+            new Tuple<int, int>(0, 1),
+            new Tuple<int, int>(-2, 0),
+            new Tuple<int, int>(0, -2),
+            new Tuple<int, int>(2, 0),
+            new Tuple<int, int>(0, 2),
+            new Tuple<int, int>(-1, -1),
+            new Tuple<int, int>(-1, -2),
+            new Tuple<int, int>(-2, -1),
+            new Tuple<int, int>(1, 1),
+            new Tuple<int, int>(1, 2),
+            new Tuple<int, int>(2, 1),
+            new Tuple<int, int>(1, -1),
+            new Tuple<int, int>(1, -2),
+            new Tuple<int, int>(2, -1),
+            new Tuple<int, int>(-1, 1),
+            new Tuple<int, int>(-1, 2),
+            new Tuple<int, int>(-2, 1),
+
         };
         UpdateLineOfSight(X, Y, X, Y);
     }
@@ -29,7 +46,6 @@ public class Building : BuildableEntity
     public override void Update()
     {
         base.Update();
-        //SetNewPosition(X, Y); // only for debugging
     }
 
     #region Context-menu
@@ -125,6 +141,7 @@ public class Building : BuildableEntity
         newObject.transform.parent = transform.parent.parent.GetComponent<Player>().Buildings.transform;
         newBuilding.X = X + 20;
         newBuilding.Y = Y + 20;
+        newBuilding.SetWorldPositionFromGridPosition(newBuilding.X, newBuilding.Y);
         CreateConnection(newBuilding);
         return true;
     }

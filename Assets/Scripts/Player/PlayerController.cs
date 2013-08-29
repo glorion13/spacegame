@@ -9,6 +9,10 @@ public class PlayerController : MonoBehaviour
     // Touch states
     private bool moved;
     private bool stationary;
+    private bool touchStarted;
+
+    private Entity firstEntityHit;
+    private Entity lastEntityHit;
 
 	void Update () {
         // *TODO Create the various distinctions between 'Tap', 'LongTap' and 'Drag', as well as Pinch and Pan
@@ -18,6 +22,17 @@ public class PlayerController : MonoBehaviour
         // TouchPhase.Ended
 
         // Tap
+        if (touchStarted)
+        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.collider.gameObject);
+                Debug.Log(GameObject.FindGameObjectWithTag("Map").GetComponent<MapGrid>().GetGridPositionFromWorldPosition(hit.collider.gameObject.transform.position));
+            }
+        }
         if (Input.GetMouseButtonDown(0))
         {
             // Raycast to find if user input hit a 3D object
@@ -25,13 +40,31 @@ public class PlayerController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                entityHit = hit.collider.gameObject.GetComponent<Entity>();
-                if (entityHit == null)
+                firstEntityHit = hit.collider.gameObject.GetComponent<Entity>();
+                if (firstEntityHit != null)
+                {
+                    touchStarted = true;
+                    Debug.Log("start touch");
+                    Debug.Log(firstEntityHit);
+                }
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("end touch");
+            touchStarted = false;
+            // Raycast to find if user input hit a 3D object
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                lastEntityHit = hit.collider.gameObject.GetComponent<Entity>();
+                if (lastEntityHit == null)
                     HideContextMenu();
                 else
                 {
                     //bool inputIsFromOwner = entityHit.transform.parent.parent.GetComponent<NetworkView>().isMine;
-                    entityHit.OnTap();
+                    lastEntityHit.OnTap();
                 }
             }
             else

@@ -17,4 +17,13 @@ public class MapGrid : MonoBehaviour
         return GridWorldPositions[y][x];
     }
 
+    public Vector2 GetGridPositionFromWorldPosition(Vector3 position)
+    {
+        float hexHeight = GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.size.z / GridWorldPositions.Length;
+        float hexWidth = GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.size.x / GridWorldPositions[0].Length;
+        float xOffset = GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.max.x;
+        float zOffset = GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.max.z;
+        return new Vector2((float)Math.Floor((position.x + GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.max.x) / hexWidth), (float)Math.Floor((-position.z + GameObject.FindGameObjectWithTag("MapMesh").renderer.bounds.max.z) / hexHeight));
+    }
+
 }

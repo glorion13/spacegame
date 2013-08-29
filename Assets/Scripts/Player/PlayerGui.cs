@@ -10,7 +10,7 @@ public class PlayerGui : MonoBehaviour {
     {
         this.contextMenuFunctions = contextMenuFunctions;
     }
-	
+
 	private bool contextMenuVisible;
 	public void SetContextMenuVisible(bool contextMenuVisible)
 	{
@@ -39,6 +39,18 @@ public class PlayerGui : MonoBehaviour {
 	
 	void OnGUI()
 	{
+        /* GUI for all objects
+        var activePlayer = transform.parent.GetComponent<Player>();
+        for (int i = 0; i < activePlayer.Buildings.transform.childCount; i++)
+        {
+            var building = activePlayer.Buildings.transform.GetChild(i);
+            var buildingScreenPoint = this.gameObject.camera.WorldToScreenPoint(building.transform.position);
+            buildingScreenPoint.Set(buildingScreenPoint.x, Screen.height - buildingScreenPoint.y, buildingScreenPoint.z);
+            contextMenuBoundingBox = new Rect(buildingScreenPoint.x, buildingScreenPoint.y, 100, 90);
+            GUI.Box(contextMenuBoundingBox, "");
+        }
+        */
+
 	    if ((!contextMenuVisible) || (focusedObject == null)) return;
 
 	    // Get the position of the selected 3D object in screen coordinates
@@ -46,7 +58,7 @@ public class PlayerGui : MonoBehaviour {
 	    screenPoint.Set(screenPoint.x, Screen.height - screenPoint.y, screenPoint.z);
 			
 	    // Display context menu on these screen coordinates
-	    contextMenuBoundingBox = new Rect(screenPoint.x, screenPoint.y, 100, 90);
+	    contextMenuBoundingBox = new Rect(screenPoint.x, screenPoint.y, 100, 40);
 	    GUI.Box(contextMenuBoundingBox, "");
 
 	    // Loop through dictionary of available actions from the selected object and display them

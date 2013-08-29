@@ -36,13 +36,13 @@ public class VisibilityGrid : MonoBehaviour
     }
     public void SetVisibilityInTile(int x, int y, int visibilityValue)
     {
-        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length) || (x > VisibilityTiles[y].Length)) return;
+        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length - 1) || (x > VisibilityTiles[y].Length - 1)) return;
         VisibilityTiles[y][x] = visibilityValue;
     }
 
     public void IncreaseVisibilityTileValue(int x, int y)
     {
-        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length) || (x > VisibilityTiles[y].Length)) return;
+        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length - 1) || (x > VisibilityTiles[y].Length - 1)) return;
         VisibilityTiles[y][x]++;
         VisibilityTexture.SetPixel(x, y, new Color(1.0f, 1.0f, 1.0f));
         VisibilityTexture.Apply(false);
@@ -51,7 +51,7 @@ public class VisibilityGrid : MonoBehaviour
     }
     public void DecreaseVisibilityTileValue(int x, int y)
     {
-        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length) || (x > VisibilityTiles[y].Length)) return;
+        if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length - 1) || (x > VisibilityTiles[y].Length - 1)) return;
         if (VisibilityTiles[y][x] <= 0) return;
         VisibilityTiles[y][x]--;
         if (VisibilityTiles[y][x] == 0)

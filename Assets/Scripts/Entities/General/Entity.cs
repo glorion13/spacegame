@@ -14,7 +14,7 @@ public class Entity : MonoBehaviour {
         }
         set
         {
-            x = Math.Max(0, value);
+            x = Math.Min(Math.Max(0, value), GameObject.FindGameObjectWithTag("Map").GetComponent<MapGrid>().GridWorldPositions[0].Length - 1);
         }
     }
     private int y;
@@ -26,7 +26,7 @@ public class Entity : MonoBehaviour {
         }
         set
         {
-            y = Math.Max(0, value);
+            y = Math.Min(Math.Max(0, value), GameObject.FindGameObjectWithTag("Map").GetComponent<MapGrid>().GridWorldPositions.Length - 1);
         }
     }
 
