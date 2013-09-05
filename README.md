@@ -33,9 +33,10 @@ To do:
 --------------------
 
 - Combat interaction
-- Combat
+- Combat gameplay
 - Game AI
 - GUI stuff
+- Properly flesh out the ENTIRE gameplay (details)
 - Animations
 - Networking
-(optional) - Properly/Cleanly fix issue of prefab self instantiation
+- (optional) - Properly/Cleanly fix issue of prefab self instantiation
