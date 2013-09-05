@@ -3,16 +3,16 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    // 
-    private Entity entityHit;
-
     // Touch states
-    private bool moved;
-    private bool stationary;
+    private bool touchMoved;
     private bool touchStarted;
 
+    // Possible entities hit by input
     private Entity firstEntityHit;
     private Entity lastEntityHit;
+
+    // Latest mouse position
+    private Vector3 latestMousePosition;
 
 	void Update () {
         // *TODO Create the various distinctions between 'Tap', 'LongTap' and 'Drag', as well as Pinch and Pan
@@ -22,17 +22,6 @@ public class PlayerController : MonoBehaviour
         // TouchPhase.Ended
 
         // Tap
-        if (touchStarted)
-        {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                Debug.Log(hit.collider.gameObject);
-                Debug.Log(GameObject.FindGameObjectWithTag("Map").GetComponent<MapGrid>().GetGridPositionFromWorldPosition(hit.collider.gameObject.transform.position));
-            }
-        }
         if (Input.GetMouseButtonDown(0))
         {
             // Raycast to find if user input hit a 3D object
@@ -43,32 +32,63 @@ public class PlayerController : MonoBehaviour
                 firstEntityHit = hit.collider.gameObject.GetComponent<Entity>();
                 if (firstEntityHit != null)
                 {
+                    latestMousePosition = Input.mousePosition;
                     touchStarted = true;
-                    Debug.Log("start touch");
-                    Debug.Log(firstEntityHit);
                 }
             }
         }
+
+
         if (Input.GetMouseButtonUp(0))
         {
-            Debug.Log("end touch");
-            touchStarted = false;
             // Raycast to find if user input hit a 3D object
+            touchStarted = false;
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 lastEntityHit = hit.collider.gameObject.GetComponent<Entity>();
-                if (lastEntityHit == null)
-                    HideContextMenu();
+                if (touchMoved)
+                {
+                    firstEntityHit.OnDragFinish();
+                    touchMoved = false;
+                }
                 else
                 {
-                    //bool inputIsFromOwner = entityHit.transform.parent.parent.GetComponent<NetworkView>().isMine;
-                    lastEntityHit.OnTap();
+                    if (lastEntityHit == null)
+                        HideContextMenu();
+                    else
+                    {
+                        //bool entityIsOwnedByActor = entityHit.transform.parent.parent.GetComponent<NetworkView>().isMine;
+                        lastEntityHit.OnTap();
+                    }
                 }
             }
             else
                 HideContextMenu();
+        }
+
+        if (touchStarted)
+        {
+            if (Input.mousePosition != latestMousePosition)
+            {
+                if (touchMoved)
+                {
+                    latestMousePosition = Input.mousePosition;
+                    var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit))
+                        firstEntityHit.OnDrag(GameObject.FindGameObjectWithTag("Map").GetComponent<MapGrid>().GetGridPositionFromWorldPosition(hit.point));
+                }
+                else
+                {
+                    latestMousePosition = Input.mousePosition;
+                    {
+                        touchMoved = true;
+                        firstEntityHit.OnDragStart();
+                    }
+                }
+            }
         }
 	}
 

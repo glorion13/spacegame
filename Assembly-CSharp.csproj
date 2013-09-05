@@ -45,9 +45,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Entities\Buildings\Building.cs" />
+     <Compile Include="Assets\Scripts\Entities\Combat\Combat.cs" />
      <Compile Include="Assets\Scripts\Entities\General\BuildableEntity.cs" />
      <Compile Include="Assets\Scripts\Entities\General\EnergyEntity.cs" />
      <Compile Include="Assets\Scripts\Entities\General\Entity.cs" />
+     <Compile Include="Assets\Scripts\Entities\Units\Fighter.cs" />
      <Compile Include="Assets\Scripts\Entities\Units\Unit.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\Grid\HexagonGridCreator.cs" />

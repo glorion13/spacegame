@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
     public GameObject VisibilityGrid;
     public GameObject View;
 
+    public int Energy;
+
 	// Use this for initialization
 	void Start () {
 	}

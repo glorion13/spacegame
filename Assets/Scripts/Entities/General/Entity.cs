@@ -64,7 +64,13 @@ public class Entity : MonoBehaviour {
     public virtual void OnLongTap()
     {
     }
-    public virtual void OnDrag()
+    public virtual void OnDragStart()
+    {
+    }
+    public virtual void OnDrag(Vector2 dragCoordinates)
+    {
+    }
+    public virtual void OnDragFinish()
     {
     }
 
@@ -80,9 +86,6 @@ public class Entity : MonoBehaviour {
         {
             new Tuple<int, int>(0, 0)
         };
-
-        // Update LoS
-        UpdateLineOfSight(X, Y, X, Y);
     }
 
     public virtual void Update()
@@ -101,6 +104,16 @@ public class Entity : MonoBehaviour {
             if (visibilityGrid.GetVisibilityInTile(X + tile.First, Y + tile.Second) > 0) return true;
         }
         return false;
+    }
+
+    public void InitialiseLineOfSight(int x, int y)
+    {
+        if (LineOfSightTemplate.Count <= 0) return;
+        var visibilityGrid = transform.parent.parent.GetComponent<Player>().VisibilityGrid.GetComponent<VisibilityGrid>();
+        foreach (var lineOfSightTiles in LineOfSightTemplate)
+        {
+            visibilityGrid.IncreaseVisibilityTileValue(x + lineOfSightTiles.First, y + lineOfSightTiles.Second);
+        }
     }
 
     public void UpdateLineOfSight(int prevX, int prevY, int newX, int newY)

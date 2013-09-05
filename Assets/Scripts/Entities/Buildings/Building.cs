@@ -6,6 +6,9 @@ using System;
 public class Building : BuildableEntity
 {
 
+    public float EnergyGatheringRadius;
+    public int GatheringRate;
+
     // Use this for initialization
     public override void Start()
     {
@@ -37,15 +40,29 @@ public class Building : BuildableEntity
             new Tuple<int, int>(-1, 1),
             new Tuple<int, int>(-1, 2),
             new Tuple<int, int>(-2, 1),
-
         };
-        UpdateLineOfSight(X, Y, X, Y);
+        InitialiseLineOfSight(X, Y);
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
+        GatherAvailableEnergy(); // Set it to work with actual time rather than Update() time
+    }
+
+    public void GatherAvailableEnergy()
+    {
+        var allEnergyPatches = transform.root.GetComponentsInChildren<EnergyEntity>();
+        foreach (var energyPatch in allEnergyPatches)
+            GatherEnergyFromPatch(energyPatch);
+    }
+
+    public void GatherEnergyFromPatch(EnergyEntity patch)
+    {
+        if (patch.EnergyValue == 0) return;
+        patch.EnergyValue--;
+        GetOwner().GetComponent<Player>().Energy++;
     }
 
     #region Context-menu

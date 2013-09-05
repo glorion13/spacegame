@@ -4,23 +4,29 @@ using System.Collections.Generic;
 
 public class Unit : BuildableEntity {
 
-	// Use this for initialization
-    public override void Start()
-    {
-        base.Start();
+    public List<Vector2> MovementTrajectory;
 
-        // Set up LoS template
-        // left tile, right tile, top tile, bottom tile
-        LineOfSightTemplate = new List<Tuple<int, int>>
+    public override void OnDragStart()
+    {
+        MovementTrajectory.Clear();
+    }
+    public override void OnDrag(Vector2 dragCoordinates)
+    {
+            Debug.Log(dragCoordinates);
+            MovementTrajectory.Add(new Vector2(dragCoordinates.x, dragCoordinates.y));
+    }
+    public override void OnDragFinish()
+    {
+        Move();
+    }
+
+    public void Move()
+    {
+        foreach (var point in MovementTrajectory)
         {
-            new Tuple<int, int>(0, 0),
-            new Tuple<int, int>(-1, 0),
-            new Tuple<int, int>(0, -1),
-            new Tuple<int, int>(1, 0),
-            new Tuple<int, int>(0, 1)
-        };
-        UpdateLineOfSight(X, Y, X, Y);
-	}
+            SetNewPosition((int) point.x, (int) point.y);
+        }
+    }
 	
 	// Update is called once per frame
     public override void Update()

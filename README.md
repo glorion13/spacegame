@@ -24,16 +24,18 @@ Completed:
 * Particle effect reacting to energy fluctuations
 * GUI for units (other than context menus) [backend structure only]
 * Grid to World and World to Grid transformation functions
+* Controls (tap, drag, long tap)
+* Movement through controls
+* Decided that there is no zoom-in/out, the map is always fullscreen
+* Energy gathering interaction
 
 To do:
 --------------------
 
-- Controls - dragging control - have a look at Unity Trail Renderer for visualisation of path
-- Interactions between entities (e.g. gathering energy, attacking)
-- Collision & pathfinding
-- Game AI
+- Combat interaction
 - Combat
-- Minimap - or zoom in zoom out
+- Game AI
+- GUI stuff
 - Animations
 - Networking
 (optional) - Properly/Cleanly fix issue of prefab self instantiation

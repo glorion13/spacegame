@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Editor\BuildingEditor.cs" />
-     <Compile Include="Assets\Scripts\Editor\UnitEditor.cs" />
+     <Compile Include="Assets\Scripts\Editor\FighterEditor.cs" />
      <None Include="Assets\Shaders\FogOfWarShader.shader" />
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>

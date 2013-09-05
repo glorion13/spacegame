@@ -44,10 +44,10 @@ public class VisibilityGrid : MonoBehaviour
     {
         if ((x < 0) || (y < 0) || (y > VisibilityTiles.Length - 1) || (x > VisibilityTiles[y].Length - 1)) return;
         VisibilityTiles[y][x]++;
-        VisibilityTexture.SetPixel(x, y, new Color(1.0f, 1.0f, 1.0f));
-        VisibilityTexture.Apply(false);
         if (VisibilityTiles[y][x] == 0)
             VisibilityTiles[y][x]++;
+        VisibilityTexture.SetPixel(x, y, new Color(1.0f, 1.0f, 1.0f));
+        VisibilityTexture.Apply(false);
     }
     public void DecreaseVisibilityTileValue(int x, int y)
     {
