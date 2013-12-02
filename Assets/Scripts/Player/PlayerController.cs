@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     // Latest mouse position
     private Vector3 latestMousePosition;
 
-	void Update () {
+    void Update()
+    {
         // *TODO Create the various distinctions between 'Tap', 'LongTap' and 'Drag', as well as Pinch and Pan
         // TouchPhase.Began
         // TouchPhase.Moved
@@ -65,7 +66,15 @@ public class PlayerController : MonoBehaviour
                 }
             }
             else
+            {
                 HideContextMenu();
+                // Handle the case when the item is dragged out of the map limits
+                if (touchMoved)
+                {
+                    firstEntityHit.OnDragFinish();
+                    touchMoved = false;
+                }
+            }
         }
 
         if (touchStarted)
@@ -90,7 +99,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-	}
+    }
 
     void HideContextMenu()
     {

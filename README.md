@@ -28,15 +28,19 @@ Completed:
 * Movement through controls
 * Decided that there is no zoom-in/out, the map is always fullscreen
 * Energy gathering interaction
+* Building deployment ship unit
+* Creating links between buildings based on radius
 
 To do:
 --------------------
 
 - Combat interaction
+- Make movement work at regular intervals rather than per frame
 - Combat gameplay
 - Game AI
 - GUI stuff
 - Properly flesh out the ENTIRE gameplay (details)
 - Animations
 - Networking
-- (optional) - Properly/Cleanly fix issue of prefab self instantiation
+- (optional) Properly/Cleanly fix issue of prefab self instantiation
+- (optional) Change fog of war to use culling mask of the camera instead of .render

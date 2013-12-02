@@ -7,6 +7,7 @@ public class Building : BuildableEntity
 {
 
     public float EnergyGatheringRadius;
+    public float BuildingLinkRadius;
     public int GatheringRate;
 
     // Use this for initialization
@@ -44,6 +45,22 @@ public class Building : BuildableEntity
         InitialiseLineOfSight(X, Y);
     }
 
+    public override void FinishBuilding()
+    {
+        base.FinishBuilding();
+        var allBuildings = transform.parent.parent.GetComponent<Player>().Buildings.transform.GetComponentsInChildren<Building>();
+        foreach (var building in allBuildings)
+        {
+            if (building.gameObject != this.gameObject)
+            {
+                float distance = (float)Math.Pow((X - building.X), 2) + (float)Math.Pow((Y - building.Y), 2);
+                Debug.Log(distance);
+                if (BuildingLinkRadius >= distance)
+                    building.CreateConnection(this);
+            }
+        }
+    }
+
     // Update is called once per frame
     public override void Update()
     {
@@ -74,8 +91,8 @@ public class Building : BuildableEntity
             // Add key-value pairs for context menu
             // Left-hand side: string to appear on the menu button
             // Right-hand side: Function to execute on button tap
-            { "Fighter", BuildUnit },
-            { "Node", BuildBuilding },
+            { "Fighter", BuildFighter },
+            { "Node", BuildBuildingShip },
         };
     }
     #endregion
@@ -94,7 +111,7 @@ public class Building : BuildableEntity
     #region Network-related logic
 
     public List<Building> ConnectedBuildings;
-    public List<GameObject> BuildingLinks; 
+    public List<GameObject> BuildingLinks;
     public GameObject LinkPrefab;
 
     public void CreateConnection(Building otherBuilding)
@@ -107,7 +124,7 @@ public class Building : BuildableEntity
     }
     private GameObject VisualiseConnection(Building otherBuilding)
     {
-        var linkCylinder = (GameObject) Instantiate(LinkPrefab);
+        var linkCylinder = (GameObject)Instantiate(LinkPrefab);
         linkCylinder.transform.parent = transform.parent;
         linkCylinder.transform.localScale = new Vector3(linkCylinder.transform.localScale.x, linkCylinder.transform.localScale.y, Vector2.Distance(transform.position, otherBuilding.transform.position));
         linkCylinder.transform.position = new Vector3((transform.position.x + otherBuilding.transform.position.x) / 2, (transform.position.y + otherBuilding.transform.position.y) / 2, (transform.position.z + otherBuilding.transform.position.z) / 2);
@@ -138,28 +155,29 @@ public class Building : BuildableEntity
 
     protected GameObject Build(GameObject objectToBuilt)
     {
-        var newObject = (GameObject) Instantiate(objectToBuilt, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
+        var newObject = (GameObject)Instantiate(objectToBuilt, new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, this.gameObject.transform.position.z), Quaternion.identity);
         return newObject;
     }
 
-    public GameObject UnitObject;
-    public bool BuildUnit()
+    public GameObject FighterObject;
+    public GameObject BuildingShipObject;
+
+    public bool BuildFighter()
     {
-        GameObject newObject = Build(UnitObject);
+        GameObject newObject = Build(FighterObject);
         newObject.transform.parent = transform.parent.parent.GetComponent<Player>().Units.transform;
+        var newUnit = newObject.GetComponent<Unit>();
+        newUnit.X = X + 5;
+        newUnit.Y = Y + 5;
         return true;
     }
-
-    public GameObject BuildingObject;
-    public bool BuildBuilding()
+    public bool BuildBuildingShip()
     {
-        GameObject newObject = Build(BuildingObject);
-        var newBuilding = newObject.GetComponent<Building>();
-        newObject.transform.parent = transform.parent.parent.GetComponent<Player>().Buildings.transform;
-        newBuilding.X = X + 20;
-        newBuilding.Y = Y + 20;
-        newBuilding.SetWorldPositionFromGridPosition(newBuilding.X, newBuilding.Y);
-        CreateConnection(newBuilding);
+        GameObject newObject = Build(BuildingShipObject);
+        newObject.transform.parent = transform.parent.parent.GetComponent<Player>().Units.transform;
+        var newUnit = newObject.GetComponent<BuildingShip>();
+        newUnit.X = X + 5;
+        newUnit.Y = Y + 5;
         return true;
     }
 

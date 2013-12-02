@@ -16,7 +16,7 @@ public class BuildableEntity : Entity {
         }
     }
 
-    public void FinishBuilding()
+    public virtual void FinishBuilding()
     {
         BuildProgress = 100;
         Built = true;

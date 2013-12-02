@@ -4,11 +4,6 @@ using System.Collections.Generic;
 
 public class Fighter : Unit
 {
-
-    public int Power;
-    public int Armour;
-    public int HP;
-
     // Use this for initialization
     public override void Start()
     {

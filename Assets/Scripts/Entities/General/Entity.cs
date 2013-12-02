@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Entity : MonoBehaviour {
+public class Entity : MonoBehaviour
+{
 
     private int x;
     public int X
